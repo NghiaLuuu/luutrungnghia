@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function calculateAverage(score1, score2, score3)
+    {
+        return (score1+score2+score3)/3;
+    }
+
+    const dolphinsAvg1 = calculateAverage(96, 108, 89);
+    const koalasAvg1 = calculateAverage(88, 91, 110);
+
+    console.log("Test Data 1:");
+    if (dolphinsAvg1 > koalasAvg1) 
+    {
+        console.log("Dolphins win the trophy!");
+    } else if (koalasAvg1 > dolphinsAvg1) 
+    {
+        console.log("Koalas win the trophy!");
+    } else 
+    {
+        console.log("It's a draw!");
+    }
+
+    const dolphinsAvgBonus1 = calculateAverage(97, 112, 101);
+    const koalasAvgBonus1 = calculateAverage(109, 95, 123);
+
+    console.log("\nBonus Test Data 1:");
+    if (dolphinsAvgBonus1 > koalasAvgBonus1 && dolphinsAvgBonus1 >= 100) 
+    {
+        console.log("Dolphins win the trophy!");
+    } else if (koalasAvgBonus1 > dolphinsAvgBonus1 && koalasAvgBonus1 >= 100) 
+    {
+        console.log("Koalas win the trophy!");
+    } else if (dolphinsAvgBonus1 === koalasAvgBonus1 && dolphinsAvgBonus1 >= 100 && koalasAvgBonus1 >= 100) 
+    {
+        console.log("It's a draw!");
+    } else 
+    {
+        console.log("No team wins the trophy.");
+    }
+
+    const dolphinsAvgBonus2 = calculateAverage(97, 112, 101);
+    const koalasAvgBonus2 = calculateAverage(109, 95, 106);
+
+    console.log("\nBonus Test Data 2:");
+    if (dolphinsAvgBonus2 > koalasAvgBonus2 && dolphinsAvgBonus2 >= 100) 
+    {
+        console.log("Dolphins win the trophy!");
+    } else if (koalasAvgBonus2 > dolphinsAvgBonus2 && koalasAvgBonus2 >= 100) 
+    {
+        console.log("Koalas win the trophy!");
+    } else if (dolphinsAvgBonus2 === koalasAvgBonus2 && dolphinsAvgBonus2 >= 100 && koalasAvgBonus2 >= 100) 
+    {
+        console.log("It's a draw!");
+    } else 
+    {
+        console.log("No team wins the trophy.");
+    }
+</script>
+<body>
+    
+</body>
+</html>
