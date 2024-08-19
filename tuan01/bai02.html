@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+function calculateBMI(mass, height) {
+    return mass / (height * height);
+}
+
+const markData1 = { mass: 78, height: 1.69 };
+const johnData1 = { mass: 92, height: 1.95 };
+
+const markBMI1 = calculateBMI(markData1.mass, markData1.height);
+const johnBMI1 = calculateBMI(johnData1.mass, johnData1.height);
+
+console.log("Test Data 1:");
+if (markBMI1 > johnBMI1) {
+    console.log(`Mark's BMI (${markBMI1.toFixed(1)}) is higher than John's (${johnBMI1.toFixed(1)})!`);
+} else {
+    console.log(`John's BMI (${johnBMI1.toFixed(1)}) is higher than Mark's (${markBMI1.toFixed(1)})!`);
+}
+
+const markData2 = { mass: 95, height: 1.88 };
+const johnData2 = { mass: 85, height: 1.76 };
+
+const markBMI2 = calculateBMI(markData2.mass, markData2.height);
+const johnBMI2 = calculateBMI(johnData2.mass, johnData2.height);
+
+console.log("\nTest Data 2:");
+if (markBMI2 > johnBMI2) {
+    console.log(`Mark's BMI (${markBMI2.toFixed(1)}) is higher than John's (${johnBMI2.toFixed(1)})!`);
+} else {
+    console.log(`John's BMI (${johnBMI2.toFixed(1)}) is higher than Mark's (${markBMI2.toFixed(1)})!`);
+}
+
+</script>
+<body>
+    
+</body>
+</html>
