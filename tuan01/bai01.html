@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+function calculateBMI(mass, height) {
+    return mass / (height * height);
+}
+
+const markData1 = { mass: 78, height: 1.69 };
+const johnData1 = { mass: 92, height: 1.95 };
+
+const markBMI1 = calculateBMI(markData1.mass, markData1.height);
+const johnBMI1 = calculateBMI(johnData1.mass, johnData1.height);
+
+const markHigherBMI1 = markBMI1 > johnBMI1;
+
+console.log("Test Data 1:");
+console.log(`Mark's BMI: ${markBMI1}`);
+console.log(`John's BMI: ${johnBMI1}`);
+console.log(`Is Mark's BMI higher than John's? ${markHigherBMI1}`);
+
+const markData2 = { mass: 95, height: 1.88 };
+const johnData2 = { mass: 85, height: 1.76 };
+
+const markBMI2 = calculateBMI(markData2.mass, markData2.height);
+const johnBMI2 = calculateBMI(johnData2.mass, johnData2.height);
+
+const markHigherBMI2 = markBMI2 > johnBMI2;
+
+console.log("\nTest Data 2:");
+console.log(`Mark's BMI: ${markBMI2}`);
+console.log(`John's BMI: ${johnBMI2}`);
+console.log(`Is Mark's BMI higher than John's? ${markHigherBMI2}`);
+
+
+</script>
+<body>
+    
+</body>
+</html>
