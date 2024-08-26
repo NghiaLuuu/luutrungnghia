@@ -43,19 +43,32 @@
     // const sum = numbers.myReduce((accumulator, currentValue) => accumulator + currentValue, 0);
     // console.log(sum); 
 
-    //filter
-    Array.prototype.myFilter = function(callback) {
-    const newArray = [];
+    // filter
+    // Array.prototype.myFilter = function(callback) {
+    // const newArray = [];
+    // for (let i = 0; i < this.length; i++) {
+    //     if (callback(this[i], i, this)) {
+    //         newArray.push(this[i]);
+    //     }
+    // }
+    // return newArray;
+    // };
+    // const numbers = [1, 2, 3, 4, 5];
+    // const evens = numbers.myFilter(num => num % 2 === 0);
+    // console.log(evens); 
+
+    //find
+    Array.prototype.myFind = function(callback) {
     for (let i = 0; i < this.length; i++) {
         if (callback(this[i], i, this)) {
-            newArray.push(this[i]);
+            return this[i];
         }
     }
-    return newArray;
+        return undefined;
     };
-    const numbers = [1, 2, 3, 4, 5];
-    const evens = numbers.myFilter(num => num % 2 === 0);
-    console.log(evens); 
+    const numbers = [5, 12, 8, 130, 44];
+    const found = numbers.myFind(num => num > 10);
+    console.log(found); 
 
 
 </script>
