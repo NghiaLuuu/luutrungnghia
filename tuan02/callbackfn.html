@@ -19,17 +19,30 @@
     // const allEven = numbers.myEvery(num => num % 2 === 0);
     // console.log(allEven);
 
-    //map
-    Array.prototype.myMap = function(callback) {
-    const newArray = [];
+    // map
+    // Array.prototype.myMap = function(callback) {
+    // const newArray = [];
+    // for (let i = 0; i < this.length; i++) {
+    //     newArray.push(callback(this[i], i, this));
+    // }
+    // return newArray;
+    // };
+    // const numbers = [1, 2, 3, 4, 5];
+    // const squares = numbers.myMap(num => num * num);
+    // console.log(squares); 
+
+    //reduce
+    Array.prototype.myReduce = function(callback, initialValue) {
+    let accumulator = initialValue;
     for (let i = 0; i < this.length; i++) {
-        newArray.push(callback(this[i], i, this));
+        accumulator = callback(accumulator, this[i], i, this);
     }
-    return newArray;
+        return accumulator; 
     };
     const numbers = [1, 2, 3, 4, 5];
-    const squares = numbers.myMap(num => num * num);
-    console.log(squares); // [1, 4, 9, 16, 25]
+    const sum = numbers.myReduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    console.log(sum); 
+
 
 
 </script>
