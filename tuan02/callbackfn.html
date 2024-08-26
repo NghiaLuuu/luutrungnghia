@@ -6,10 +6,19 @@
     <title>Document</title>
 </head>
 <script>
+    // every
+    Array.prototype.myEvery = function(callback) {
+    for (let i = 0; i < this.length; i++) {
+        if (!callback(this[i], i, this)) {
+            return false;
+        }
+    }
+    return true;
+    };
     const numbers = [2, 4, 6, 8, 10];
+    const allEven = numbers.myEvery(num => num % 2 === 0);
+    console.log(allEven);
 
-    const allEven = numbers.every(num => num % 2 === 0);
-    console.log(allEven); 
 
 </script>
 <body>
