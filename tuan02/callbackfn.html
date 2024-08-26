@@ -7,17 +7,29 @@
 </head>
 <script>
     // every
-    Array.prototype.myEvery = function(callback) {
+    // Array.prototype.myEvery = function(callback) {
+    // for (let i = 0; i < this.length; i++) {
+    //     if (!callback(this[i], i, this)) {
+    //         return false;
+    //     }
+    // }
+    // return true;
+    // };
+    // const numbers = [2, 4, 6, 8, 10];
+    // const allEven = numbers.myEvery(num => num % 2 === 0);
+    // console.log(allEven);
+
+    //map
+    Array.prototype.myMap = function(callback) {
+    const newArray = [];
     for (let i = 0; i < this.length; i++) {
-        if (!callback(this[i], i, this)) {
-            return false;
-        }
+        newArray.push(callback(this[i], i, this));
     }
-    return true;
+    return newArray;
     };
-    const numbers = [2, 4, 6, 8, 10];
-    const allEven = numbers.myEvery(num => num % 2 === 0);
-    console.log(allEven);
+    const numbers = [1, 2, 3, 4, 5];
+    const squares = numbers.myMap(num => num * num);
+    console.log(squares); // [1, 4, 9, 16, 25]
 
 
 </script>
