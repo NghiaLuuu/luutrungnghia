@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <textarea></textarea>
+    <button>Convert</button>
+
+    <script>
+      document.querySelector('button').addEventListener('click', function () {
+        const text = document.querySelector('textarea').value;
+        const lines = text.split('\n');
+
+        for (const [index, line] of lines.entries()) {
+          const trimmedLine = line.trim().toLowerCase();
+          if (trimmedLine.includes('_')) {
+            const [first, second] = trimmedLine.split('_');
+            if (second) {
+              const camelCase = first + second[0].toUpperCase() + second.slice(1);
+              const ticks = '✅'.repeat(index + 1);
+              console.log(`${camelCase.padEnd(20)}${ticks}`);
+            } else {
+              console.error(`Dòng ${index + 1} không có định dạng hợp lệ: "${line}"`);
+            }
+          } else {
+            console.error(`Dòng ${index + 1} không chứa dấu gạch dưới: "${line}"`);
+          }
+        }
+      });
+    </script>
+</body>
+</html>
