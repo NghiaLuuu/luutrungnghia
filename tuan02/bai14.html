@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poll App</title>
+</head>
+<body>
+    <button id="answerPoll">Answer poll</button>
+
+    <script>
+      const poll = {
+        question: "What is your favourite programming language?",
+        options: ["0: JavaScript", "1: Python", "2: Rust", "3: C++"],
+        answers: new Array(4).fill(0),
+
+        registerNewAnswer() {
+          // Display the prompt and get user input
+          const input = prompt(`${this.question}\n${this.options.join('\n')}\n(Write option number)`);
+          
+          // Convert input to number
+          const option = Number(input);
+
+          // Check if the input is a valid number and within the options range
+          if (Number.isInteger(option) && option >= 0 && option < this.answers.length) {
+            // Update the answers array
+            this.answers[option]++;
+            // Display the results
+            this.displayResults();
+          } else {
+            console.log('Invalid input. Please enter a number between 0 and 3.');
+          }
+        },
+
+        displayResults(type = 'array') {
+          if (type === 'array') {
+            console.log(this.answers);
+          } else if (type === 'string') {
+            console.log(`Poll results are ${this.answers.join(', ')}`);
+          } else {
+            console.log('Invalid type. Please use "array" or "string".');
+          }
+        }
+      };
+
+      // Attach the registerNewAnswer method to the button click event
+      document.getElementById('answerPoll').addEventListener('click', () => poll.registerNewAnswer());
+
+      // Bonus Test Data
+      // Test data 1
+      poll.answers = [5, 2, 3];
+      poll.displayResults('array'); // [5, 2, 3]
+      poll.displayResults('string'); // Poll results are 5, 2, 3
+
+      // Test data 2
+      poll.answers = [1, 5, 3, 9, 6, 1];
+      poll.displayResults('array'); // [1, 5, 3, 9, 6, 1]
+      poll.displayResults('string'); // Poll results are 1, 5, 3, 9, 6, 1
+    </script>
+</body>
+</html>
