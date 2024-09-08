@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // 1. Define the Car Constructor Function
+    function Car(make, speed) {
+    this.make = make;
+    this.speed = speed;
+    }
+
+    // Methods for Car
+    Car.prototype.accelerate = function() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    };
+
+    Car.prototype.brake = function() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed} km/h`);
+    };
+
+    // 2. Define the EV Constructor Function (inherits from Car)
+    function EV(make, speed, charge) {
+    Car.call(this, make, speed); // Inherit properties from Car
+    this.charge = charge;
+    }
+
+    // Inherit methods from Car
+    EV.prototype = Object.create(Car.prototype);
+    EV.prototype.constructor = EV;
+
+    // 3. Implement chargeBattery Method
+    EV.prototype.chargeBattery = function(chargeTo) {
+    this.charge = chargeTo;
+    };
+
+    // 4. Override accelerate Method
+    EV.prototype.accelerate = function() {
+    this.speed += 20;
+    this.charge -= 1;
+    console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.charge}%`);
+    };
+
+    // 5. Create and Test an Electric Car Object
+    const myEV = new EV('Tesla', 120, 23);
+
+    myEV.accelerate(); // Tesla going at 140 km/h, with a charge of 22%
+    myEV.brake();      // Tesla is going at 135 km/h
+    myEV.chargeBattery(90); // Sets charge to 90%
+    myEV.accelerate(); // Tesla going at 155 km/h, with a charge of 89%
+
+</script>
+<body>
+    
+</body>
+</html>
