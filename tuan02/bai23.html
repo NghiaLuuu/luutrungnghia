@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // 1. Define the CarCl Class
+    class CarCl {
+    constructor(make, speed) {
+        this.make = make;
+        this.speed = speed;
+    }
+
+    accelerate() {
+        this.speed += 10;
+        console.log(`${this.make} is going at ${this.speed} km/h`);
+        return this; // For method chaining
+    }
+
+    brake() {
+        this.speed -= 5;
+        console.log(`${this.make} is going at ${this.speed} km/h`);
+        return this; // For method chaining
+    }
+    }
+
+    // 2. Define the EVCl Class
+    class EVCl extends CarCl {
+    #charge; // Private property
+
+    constructor(make, speed, charge) {
+        super(make, speed);
+        this.#charge = charge;
+    }
+
+    chargeBattery(chargeTo) {
+        this.#charge = chargeTo;
+        return this; // For method chaining
+    }
+
+    accelerate() {
+        this.speed += 20;
+        this.#charge -= 1;
+        console.log(`${this.make} going at ${this.speed} km/h, with a charge of ${this.#charge}%`);
+        return this; // For method chaining
+    }
+    }
+
+    // 3. Create and Test an Electric Car Object
+    const myEV = new EVCl('Rivian', 120, 23);
+
+    myEV
+    .accelerate()         // Rivian going at 140 km/h, with a charge of 22%
+    .brake()              // Rivian is going at 135 km/h
+    .chargeBattery(90)    // No console output for this line
+    .accelerate();        // Rivian going at 155 km/h, with a charge of 89%
+
+</script>
+<body>
+    
+</body>
+</html>
