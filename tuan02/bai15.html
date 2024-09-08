@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Listener Challenge</title>
+</head>
+<body>
+    <h1>Header</h1>
+    <script>
+      (function () {
+        const header = document.querySelector('h1');
+        header.style.color = 'red';
+        
+        // Attach an event listener to change the color of the header to blue on body click
+        document.body.addEventListener('click', function() {
+          header.style.color = 'blue';
+        });
+      })();
+    </script>
+</body>
+</html>
