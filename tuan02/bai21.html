@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // 1. Define the CarCl class
+    class CarCl {
+    constructor(make, speed) {
+        this.make = make;
+        this.speed = speed;
+    }
+
+    // 2. Accelerate Method
+    accelerate() {
+        this.speed += 10;
+        console.log(`${this.make} is going at ${this.speed} km/h`);
+    }
+
+    // 3. Brake Method
+    brake() {
+        this.speed -= 5;
+        console.log(`${this.make} is going at ${this.speed} km/h`);
+    }
+
+    // 4. Getter for speed in mi/h
+    get speedUS() {
+        return this.speed / 1.6;
+    }
+
+    // 5. Setter for speed in mi/h
+    set speedUS(speed) {
+        this.speed = speed * 1.6;
+    }
+    }
+
+    // 6. Create a new CarCl instance and test
+    const car1 = new CarCl('Ford', 120);
+
+    car1.accelerate();     // Ford is going at 130 km/h
+    car1.brake();          // Ford is going at 125 km/h
+
+    console.log(car1.speedUS); // Converts 125 km/h to mi/h: 78.125
+
+    car1.speedUS = 100;    // Sets speed in mi/h and converts to km/h
+    console.log(car1.speed); // Displays updated speed in km/h: 160 km/h
+
+</script>
+<body>
+    
+</body>
+</html>
