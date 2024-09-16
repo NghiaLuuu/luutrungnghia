@@ -4,13 +4,16 @@ import { HelloWave } from '@/components/HelloWave';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import AppV1 from "../../components/Appv1"
-import AppV2 from "../../components/Appv2"
-import AppV3 from "../../components/Appv3"
-import AppV4 from "../../components/Appv4"
-eimport Appv1xport default function HomeScreen() {
+import FirstScreen from "../../components/FirstScreen"
+import Bai1a from "../../components/1_a"
+import Bai1b from "../../components/1_b"
+import Bai1c from "../../components/1_c"
+import TikiOK from "../../components/tiki_OK"
+import Ex1UseState from "../../components/ex1_UseState"
+import Ex2UseState from "../../components/ex2_UseState"
+export default function HomeScreen() {
   return (
-    <AppV3 />
+    <TikiOK />
   );
 }
 
