@@ -8,12 +8,13 @@ import FirstScreen from "../../components/FirstScreen"
 import Bai1a from "../../components/1_a"
 import Bai1b from "../../components/1_b"
 import Bai1c from "../../components/1_c"
+import Bai2c from "../../components/2_c"
 import TikiOK from "../../components/tiki_OK"
 import Ex1UseState from "../../components/ex1_UseState"
 import Ex2UseState from "../../components/ex2_UseState"
 export default function HomeScreen() {
   return (
-    <TikiOK />
+    <Bai2c />
   );
 }
 
