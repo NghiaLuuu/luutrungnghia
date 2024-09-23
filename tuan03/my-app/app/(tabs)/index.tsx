@@ -14,7 +14,7 @@ import Ex1UseState from "../../components/ex1_UseState"
 import Ex2UseState from "../../components/ex2_UseState"
 export default function HomeScreen() {
   return (
-    <Bai2c />
+    <Ex2UseState />
   );
 }
 
