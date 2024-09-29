@@ -12,9 +12,10 @@ import Bai2c from "../../components/2_c"
 import TikiOK from "../../components/tiki_OK"
 import Ex1UseState from "../../components/ex1_UseState"
 import Ex2UseState from "../../components/ex2_UseState"
+import Scr1 from "../../components/tuan05/scr1"
 export default function HomeScreen() {
   return (
-    <Ex2UseState />
+    <Scr1 />
   );
 }
 
