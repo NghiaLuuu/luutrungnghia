@@ -1,15 +1,21 @@
 import React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import Imageicon from '@/assets/images/vs_red.png';
+import { useNavigation } from "@react-navigation/native";
 
 export default function Scr2() {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <View style={styles.row}>
                 <Image source={Imageicon} style={styles.image} />
                 <View style={styles.textContainer}>
-                    <Text>Điện Thoại Vsmart Joy 3</Text>
-                    <Text>Hàng chính hãng</Text>
+                    <Text style={{fontSize:17}}>Điện Thoại Vsmart Joy 3</Text>
+                    <Text style={{fontSize:17}}>Hàng chính hãng</Text>
+                    <Text style={{fontSize:17}}>Màu: đỏ</Text>
+                    <Text style={{fontSize:17}}>Cung cấp bởi Tiki Tradding</Text>
+                    <Text> </Text>
+                    <Text style={{fontSize:20, fontWeight:'bold'}}>1.790.000 đ</Text>
                 </View>
             </View>
             <View style={styles.chooseColor}>
@@ -26,6 +32,9 @@ export default function Scr2() {
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.colorBox, { backgroundColor: 'blue' }]} onPress={() => alert('Bạn đã chọn màu 4')}>
                         <Text style={styles.number}>4</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonXong}>
+                        <Text style={styles.textButtonXong} onPress={() => navigation.navigate('Scr1')}>XONG</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -46,7 +55,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 150,
-        height: 200,
+        height: 150,
     },
     textContainer: {
         paddingLeft: 10,  
@@ -89,6 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10, 
+        marginTop:5,
         
     },
     textButtonXong:{

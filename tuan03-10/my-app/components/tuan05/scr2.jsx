@@ -1,8 +1,11 @@
 import React from "react";
 import { View, StyleSheet, Text, Image, TouchableOpacity } from 'react-native';
 import Imageicon from '@/assets/images/vs_red.png';
+import { useNavigation } from '@react-navigation/native';
 
 export default function Scr2() {
+    const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <View style={styles.row}>
@@ -18,7 +21,7 @@ export default function Scr2() {
                     <TouchableOpacity style={[styles.colorBox, { backgroundColor: 'skyblue' }]} onPress={() => alert('Bạn đã chọn màu 1')}>
                         <Text style={styles.number}>1</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[styles.colorBox, { backgroundColor: 'red' }]} onPress={() => alert('Bạn đã chọn màu 2')}>
+                    <TouchableOpacity style={[styles.colorBox, { backgroundColor: 'red' }]} onPress={() => navigation.navigate('Scr3') }>
                         <Text style={styles.number}>2</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.colorBox, { backgroundColor: 'black' }]} onPress={() => alert('Bạn đã chọn màu 3')}>
@@ -26,6 +29,9 @@ export default function Scr2() {
                     </TouchableOpacity>
                     <TouchableOpacity style={[styles.colorBox, { backgroundColor: 'blue' }]} onPress={() => alert('Bạn đã chọn màu 4')}>
                         <Text style={styles.number}>4</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonXong}>
+                        <Text style={styles.textButtonXong}>XONG</Text>
                     </TouchableOpacity>
                 </View>
             </View>
@@ -46,7 +52,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 150,
-        height: 200,
+        height: 150,
     },
     textContainer: {
         paddingLeft: 10,  
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 10, 
+        marginTop:5,
         
     },
     textButtonXong:{
