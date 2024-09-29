@@ -1,39 +1,18 @@
-import { Image, StyleSheet, Platform } from 'react-native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Scr1 from '../../components/tuan05/scr1';
+import Scr2 from '../../components/tuan05/scr2';
+const Stack = createNativeStackNavigator();
 
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import FirstScreen from "../../components/FirstScreen"
-import Bai1a from "../../components/1_a"
-import Bai1b from "../../components/1_b"
-import Bai1c from "../../components/1_c"
-import Bai2c from "../../components/2_c"
-import TikiOK from "../../components/tiki_OK"
-import Ex1UseState from "../../components/ex1_UseState"
-import Ex2UseState from "../../components/ex2_UseState"
-import Scr1 from "../../components/tuan05/scr1"
-export default function HomeScreen() {
-  return (
-    <Scr1 />
-  );
+function App(){
+  return(
+    <NavigationContainer independent={true}>
+      <Stack.Navigator initialRouteName='Scr1'>
+        <Stack.Screen name='Home' component={Scr1}/>
+        <Stack.Screen name='Scr2' component={Scr2}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
-});
+export default App;
