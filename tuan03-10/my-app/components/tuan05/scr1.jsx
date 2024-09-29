@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: 350,
-        height: 350,
+        height: 300,
     },
     starsContainer: {
         flexDirection: 'row',
