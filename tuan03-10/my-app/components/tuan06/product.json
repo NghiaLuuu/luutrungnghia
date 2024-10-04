@@ -38,5 +38,29 @@
     "price": 1999000,
     "shop": "Tuyết Sương",
     "rating": 4.5
+  },
+  {
+    "id": 6,
+    "name": "Bàn phím cơ Keychron K2",
+    "image": "https://picsum.photos/seed/keychronk2/200/300",
+    "price": 1999000,
+    "shop": "ABC",
+    "rating": 4.5
+  },
+  {
+    "id": 7,
+    "name": "Máy tính khổng lổ",
+    "image": "https://th.bing.com/th/id/OIP.uQeuptKsThIJti8vYoQXCAHaE5?rs=1&pid=ImgDetMain",
+    "price": 1999000,
+    "shop": "Sơn Ng",
+    "rating": 4.5
+  },
+  {
+    "id": 8,
+    "name": "Lót chuột",
+    "image": "https://th.bing.com/th/id/R.fea71052d99b07e68d5b3c8360132d03?rik=ti6dXXmOssHv%2fA&pid=ImgRaw&r=0",
+    "price": 1999000,
+    "shop": "Sơn Ng",
+    "rating": 4.5
   }
 ]
