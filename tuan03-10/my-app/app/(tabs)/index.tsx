@@ -14,7 +14,7 @@ const Stack = createNativeStackNavigator();
 function App(){
   return(
     <NavigationContainer independent={true}>
-      <Stack.Navigator initialRouteName='Scr1GK' screenOptions={{headerShown:false}}>
+      <Stack.Navigator initialRouteName='Scr3Edit' screenOptions={{headerShown:false}}>
         <Stack.Screen name='Scr1' component={Scr1}/>
         <Stack.Screen name='Scr2' component={Scr2}/>
         <Stack.Screen name='Scr3' component={Scr3}/>
@@ -22,6 +22,7 @@ function App(){
         <Stack.Screen name='Scr2fl' component={Scr2fl}/>
         <Stack.Screen name='Scr1GK' component={Scr1GK}/>
         <Stack.Screen name='Scr2Create' component={Scr2Create}/>
+        <Stack.Screen name='Scr3Edit' component={Scr3Edit}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
