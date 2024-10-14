@@ -5,25 +5,29 @@ export default function Scr3Edit({ route, navigation }) {
   const { item } = route.params; 
   const [name, setName] = useState(item.name);
   const [price, setPrice] = useState(item.price);
-  const [address, setAddress] = useState(item.address); // Đã sửa lỗi chính tả
+  const [address, setAddress] = useState(item.address); 
   const [city, setCity] = useState(item.city);
   const [phone, setPhone] = useState(item.phone);
 
   const handleUpdate = async () => {
+    const updatedItem = {
+      image_link: item.image_link,
+    };
+
+    // Chỉ thêm các thuộc tính không rỗng vào updatedItem
+    if (name) updatedItem.name = name;
+    if (price) updatedItem.price = price;
+    if (address) updatedItem.address = address;
+    if (city) updatedItem.city = city;
+    if (phone) updatedItem.phone = phone;
+
     try {
       const response = await fetch(`https://645b030265bd868e9328a7a2.mockapi.io/Cau1/${item.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          name,
-          price,
-          address, // Đã sửa lỗi chính tả
-          city,
-          phone,
-          image_link: item.image_link, 
-        }),
+        body: JSON.stringify(updatedItem), 
       });
 
       if (!response.ok) {
@@ -39,27 +43,28 @@ export default function Scr3Edit({ route, navigation }) {
   };
 
   const handleDeleteProperty = async (property) => {
-    // Tạo một bản sao của đối tượng item
-    const updatedItem = { ...item };
+    // Cập nhật thuộc tính thành giá trị rỗng
+    let updatedItem = { ...item, image_link: item.image_link }; // Sao chép item và giữ lại image_link
   
-    // Xóa thuộc tính
-    delete updatedItem[property];
-  
-    // Cập nhật trạng thái của thuộc tính trong ứng dụng
     switch (property) {
       case 'name':
+        updatedItem.name = ''; // Gán giá trị rỗng cho thuộc tính name
         setName('');
         break;
       case 'price':
+        updatedItem.price = ''; // Gán giá trị rỗng cho thuộc tính price
         setPrice('');
         break;
       case 'address':
+        updatedItem.address = ''; // Gán giá trị rỗng cho thuộc tính address
         setAddress('');
         break;
       case 'city':
+        updatedItem.city = ''; // Gán giá trị rỗng cho thuộc tính city
         setCity('');
         break;
       case 'phone':
+        updatedItem.phone = ''; // Gán giá trị rỗng cho thuộc tính phone
         setPhone('');
         break;
       default:
@@ -67,24 +72,13 @@ export default function Scr3Edit({ route, navigation }) {
     }
   
     try {
-      // Tạo body mới chỉ bao gồm các thuộc tính còn lại
-      const body = {
-        image_link: updatedItem.image_link, // Giữ lại image_link
-      };
-  
-      // Chỉ thêm các thuộc tính nếu chúng không bị xóa
-      if (updatedItem.name) body.name = updatedItem.name;
-      if (updatedItem.price) body.price = updatedItem.price;
-      if (updatedItem.address) body.address = updatedItem.address;
-      if (updatedItem.city) body.city = updatedItem.city;
-      if (updatedItem.phone) body.phone = updatedItem.phone;
-  
+      // Gọi API để cập nhật item với thuộc tính đã xóa
       const response = await fetch(`https://645b030265bd868e9328a7a2.mockapi.io/Cau1/${item.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(body), // Gửi đối tượng đã sửa đổi
+        body: JSON.stringify(updatedItem), // Gửi item đã cập nhật
       });
   
       if (!response.ok) {
@@ -92,7 +86,6 @@ export default function Scr3Edit({ route, navigation }) {
       }
   
       Alert.alert('Thông báo', `Đã xóa thuộc tính ${property} thành công!`);
-      navigation.goBack();
     } catch (error) {
       console.error(error);
       Alert.alert('Lỗi', 'Có lỗi xảy ra trong quá trình xóa thuộc tính.');
@@ -135,8 +128,8 @@ export default function Scr3Edit({ route, navigation }) {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
-          value={address} // Đã sửa lỗi chính tả
-          onChangeText={setAddress} // Đã sửa lỗi chính tả
+          value={address}
+          onChangeText={setAddress}
           placeholder="Địa chỉ"
         />
         <TouchableOpacity onPress={() => handleDeleteProperty('address')} style={styles.deleteButton}>
@@ -205,7 +198,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: 30,
     height: 30,
-    backgroundColor: '#ffcccc', // Màu nền cho nút xóa
+    backgroundColor: '#ffcccc',
     borderRadius: 15,
   },
   deleteText: {
