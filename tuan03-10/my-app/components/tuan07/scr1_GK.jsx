@@ -21,7 +21,7 @@ export default function Scr1GK() {
                 />
             </View>
             <View style={styles.buttonContainer}>
-                <TouchableOpacity onPress={() => navigation.navigate('Scr2Create', { name })}>
+                <TouchableOpacity onPress={() => navigation.navigate('Scr2TT', { name })}>
                     <Text style={styles.buttonText}>GET STARTED</Text>
                 </TouchableOpacity>
             </View>
