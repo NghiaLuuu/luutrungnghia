@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer from './reducer';
+import reducer from '../../components/tuan08/reducer';
 
 const store = configureStore({
   reducer: {

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, FlatList, Text, Button, TextInput, StyleSheet } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
-import { addJob, removeJob } from './reducer';
+import { addJob, removeJob } from '../../components/tuan08/reducer';
 
 const Counter = () => {
   const [jobInput, setJobInput] = useState('');
