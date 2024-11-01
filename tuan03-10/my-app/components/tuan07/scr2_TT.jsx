@@ -1,74 +1,81 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator, Button, Alert } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Text, FlatList, Button, Alert } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const API_URL = "https://645b030265bd868e9328a7a2.mockapi.io/Cau1";
-
-export default function Scr2TT() {
+export default function Scr2TT({ route }) {
+    const { user } = route.params; // Nhận thông tin người dùng từ Scr1
+    const [userData, setUserData] = useState(user); // Lưu trữ người dùng với state để cập nhật job
     const navigation = useNavigation();
-    const route = useRoute();
-    const { name } = route.params;
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    const fetchData = async () => {
-        setLoading(true); // Bắt đầu tải dữ liệu
-        try {
-            const response = await fetch(API_URL);
-            if (!response.ok) {
-                throw new Error('Phản hồi mạng không ổn định');
-            }
-            const jsonData = await response.json();
-
-            const filteredData = jsonData.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
-            setData(filteredData);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    };
 
     useEffect(() => {
-        fetchData(); // Lấy dữ liệu khi màn hình được tải
+        // Cập nhật userData khi nhận dữ liệu từ Scr3
+        if (route.params?.updatedUser) {
+            setUserData(route.params.updatedUser);
+        }   
+    }, [route.params]);
 
-        const unsubscribe = navigation.addListener('focus', () => {
-            fetchData(); // Lấy dữ liệu khi màn hình quay lại tiêu điểm
-        });
+    const handleDeleteJob = async (jobToDelete) => {
+    // Hỏi người dùng trước khi xóa
+    const confirmDelete = window.confirm('Bạn có chắc chắn muốn xóa công việc này?');
 
-        return unsubscribe; // Dọn dẹp lắng nghe
-    }, [navigation]);
+    if (confirmDelete) {
+        // Lọc các công việc không phải là jobToDelete
+        const updatedJobs = userData.job.filter(job => job !== jobToDelete);
 
-    const renderItem = ({ item }) => (
-        <View style={styles.itemContainer}>
-            <Image source={{ uri: item.image_link }} style={styles.image} />
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.price}>Giá: {item.price}</Text>
-            <Text style={styles.address}>Địa chỉ: {item.adress}</Text>
-            <Text style={styles.description}>Thành phố: {item.city}</Text>
-            <Text style={styles.phone}>Điện thoại: {item.phone}</Text>
-            <Button
-                title="Sửa"
-                onPress={() => navigation.navigate('Scr3Edit', { item })} 
-            />
-        </View>
-    );
+        // Cập nhật state với userData mới
+        setUserData(prevState => ({
+            ...prevState,
+            job: updatedJobs,
+        }));
 
-    if (loading) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
+        // Cập nhật vào API
+        try {
+            const response = await fetch(`https://645b030265bd868e9328a7a2.mockapi.io/Cau1/${userData.id}`, {
+                method: 'PUT', // hoặc 'PATCH'
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...userData,
+                    job: updatedJobs,
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Không thể cập nhật công việc.');
+            }
+
+            // Thông báo cho người dùng
+            alert('Đã xóa công việc thành công!');
+        } catch (error) {
+            console.error('Error updating jobs in API:', error);
+            alert('Đã xảy ra lỗi khi cập nhật công việc.');
+        }
     }
+};
 
+
+    
+    
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Chào mừng, {name}!</Text>
-            <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.listContainer}
+            <Text style={styles.userName}>{userData.name}</Text>
+            <Text style={styles.jobTitle}>Công việc:</Text>
+            <FlatList 
+                data={userData.job} 
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={({ item }) => (
+                    <View style={styles.jobItemContainer}>
+                        <Text style={styles.jobItem}>{item}</Text>
+                        <Button 
+                            title="Edit" 
+                            onPress={() => navigation.navigate('Scr3Edit', { user: userData, job: item })} // Điều hướng tới Scr4
+                        />
+                        <Button title="-" onPress={() => handleDeleteJob(item)} />
+                    </View>
+                )}
             />
-            <Button title="Tạo mới" onPress={() => navigation.navigate('Scr4Create', { name })} />
+            <Button title="Create" onPress={() => navigation.navigate('Scr4Create', { user: userData })} />
         </View>
     );
 }
@@ -76,52 +83,27 @@ export default function Scr2TT() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
+        padding: 20,
     },
-    listContainer: {
-        padding: 10,
-    },
-    itemContainer: {
-        marginBottom: 15,
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 3,
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 10,
-    },
-    name: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    price: {
-        fontSize: 16,
-        color: 'gray',
-    },
-    address: {
-        fontSize: 16,
-        color: 'gray',
-    },
-    description: {
-        fontSize: 14,
-        color: '#555',
-    },
-    phone: {
-        fontSize: 14,
-        color: '#555',
-    },
-    text: {
+    userName: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 16,
+        marginBottom: 10,
+    },
+    jobTitle: {
+        fontSize: 18,
+        marginBottom: 5,
+    },
+    jobItemContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingVertical: 10,
+        borderBottomWidth: 1,
+        borderBottomColor: '#ccc',
+    },
+    jobItem: {
+        fontSize: 16,
+        flex: 1,
     },
 });

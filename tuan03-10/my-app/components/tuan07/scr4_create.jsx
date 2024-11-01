@@ -1,109 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, FlatList, ActivityIndicator, Button, TextInput, Alert } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import React, { useState } from "react";
+import { View, Text, TextInput, Button, StyleSheet, Alert } from "react-native";
 import { useNavigation } from '@react-navigation/native';
-const API_URL = "https://645b030265bd868e9328a7a2.mockapi.io/Cau1";  
 
-export default function Scr2TT() {
+export default function Scr3Edit({ route }) {
+    const { user, job } = route.params; // Nhận thông tin người dùng và công việc cần chỉnh sửa
+    const [updatedJob, setUpdatedJob] = useState(job); // Trạng thái lưu công việc đã cập nhật
     const navigation = useNavigation();
-    const route = useRoute();
-    const { name } = route.params;
-    const [data, setData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [address, setAddress] = useState('');  
-    const [city, setCity] = useState('');        
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch(API_URL);
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                const jsonData = await response.json();
+    const handleUpdateJob = () => {
+        if (updatedJob) {
+            const updatedJobs = user.job.map(item => (item === job ? updatedJob : item));
+            const updatedUser = { ...user, job: updatedJobs };
 
-                const filteredData = jsonData.filter(item => item.name.toLowerCase().includes(name.toLowerCase()));
-                setData(filteredData);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-    }, [name]);
-
-    const renderItem = ({ item }) => (
-        <View style={styles.itemContainer}>
-            <Image source={{ uri: item.image_link }} style={styles.image} />
-            <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.price}>{item.price}</Text>
-        </View>
-    );
-
-    const handleAddPress = async () => {
-        if (!address || !city) {
-            Alert.alert("Error", "Please fill out both fields");
-            return;
-        }
-
-        const item = data[0];
-
-        const updatedItem = {
-            ...item,
-            adress: address,
-            city: city
-        };
-
-        try {
-            const response = await fetch(`${API_URL}/${item.id}`, {
-                method: 'PUT', 
+            // Cập nhật API
+            const URL = `https://645b030265bd868e9328a7a2.mockapi.io/Cau1/${user.id}`;
+            fetch(URL, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(updatedItem),
+                body: JSON.stringify(updatedUser),
+            })
+            .then(response => response.json())
+            .then(data => {
+                Alert.alert("Thành công", "Đã cập nhật công việc");
+                navigation.navigate('Scr2', { updatedUser: data }); // Quay lại Scr2 với dữ liệu đã cập nhật
+            })
+            .catch(err => {
+                Alert.alert("Lỗi", "Không thể cập nhật công việc.");
+                console.error("Error updating job:", err);
             });
-
-            if (response.ok) {
-                Alert.alert("Success", "Data has been updated successfully");
-                setData(prevData => prevData.map(d => d.id === item.id ? updatedItem : d));
-            } else {
-                Alert.alert("Error", "Failed to update data");
-            }
-            navigation.navigate('Scr2TT', { name });
-        } catch (error) {
-            console.error(error);
-            Alert.alert("Error", "Something went wrong");
+        } else {
+            Alert.alert("Thông báo", "Vui lòng nhập công việc mới");
         }
     };
 
-    if (loading) {
-        return <ActivityIndicator size="large" color="#0000ff" />;
-    }
-
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>Welcome, {name}!</Text>
-            <FlatList
-                data={data}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.listContainer}
+            <Text style={styles.userName}>Tên người dùng: {user.name}</Text>
+            <TextInput 
+                style={styles.input} 
+                placeholder="Nhập công việc mới" 
+                value={updatedJob} 
+                onChangeText={setUpdatedJob} 
             />
-            <TextInput
-                style={styles.textInput}
-                placeholder="Enter address"
-                value={address}
-                onChangeText={setAddress}  
-            />
-            <TextInput
-                style={styles.textInput}
-                placeholder="Enter city"
-                value={city}
-                onChangeText={setCity}  
-            />
-            <Button title="Add" onPress={handleAddPress} />
+            <Button title="OK" onPress={handleUpdateJob} />
         </View>
     );
 }
@@ -111,48 +52,19 @@ export default function Scr2TT() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        padding: 20,
         justifyContent: 'center',
-        alignItems: 'center',
-        padding: 16,
     },
-    listContainer: {
-        padding: 10,
-    },
-    itemContainer: {
-        marginBottom: 15,
-        padding: 10,
-        backgroundColor: '#fff',
-        borderRadius: 8,
-        shadowColor: '#000',
-        shadowOpacity: 0.1,
-        shadowRadius: 6,
-        elevation: 3,
-    },
-    image: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        marginBottom: 10,
-    },
-    name: {
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    price: {
-        fontSize: 16,
-        color: 'gray',
-    },
-    text: {
+    userName: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 16,
+        marginBottom: 20,
     },
-    textInput: {
+    input: {
         height: 40,
         borderColor: 'gray',
         borderWidth: 1,
-        width: '100%',
-        marginBottom: 10,
-        paddingHorizontal: 8,
+        marginBottom: 20,
+        paddingLeft: 10,
     },
 });
